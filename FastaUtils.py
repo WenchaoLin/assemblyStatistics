@@ -16,7 +16,8 @@ trans = string.maketrans('ACGTacgt', 'TGCAtgca')
 # re for fasta header
 r = re.compile("^>(?P<name>\S+)(\s(?P<desc>.*))?")
 
-LARGE = 100
+#define sequence larger than 1000 as LARGE scafflod
+LARGE = 1000
 
 
 class Fasta(object):
