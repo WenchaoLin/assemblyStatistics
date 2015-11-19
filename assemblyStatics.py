@@ -7,7 +7,9 @@
 ################################################################################
 
 import FastaUtils
-import argparse
+import sys
+from optparse import OptionParser 
+
 
 def run(fin):
     '''
@@ -94,21 +96,23 @@ def parseArgs():
     '''
     parse options
     '''
-    desc = 'A script to calculate a basic set of metrics from a genome assembly'
-    parser = argparse.ArgumentParser(desc)
-    parser.add_argument('-f', '--fasta', metavar = 'FASTA',
-                        help = 'input fasta format file',
-                        )
-    args = parser.parse_args()
-    return args
+    usage = "usage: %prog [options] -f INPUT.fasta"
+    parser = OptionParser(usage = usage) 
+    parser.add_option("-f", "--fasta", 
+                      dest="fasta", metavar = 'FILE', 
+                      help="input fasta file") 
+    
+    (options, args) = parser.parse_args()
+    if not options.fasta:
+            parser.print_help()
+            sys.exit()
+    return options
+
 
 if __name__ == '__main__':
     
     args = parseArgs()
     
-    try:
-        fastaname = args.fasta
-        f = open(fastaname, 'r')
-        run(f)
-    except:
-        pass
+    fastaname = args.fasta
+    f = open(fastaname, 'r')
+    run(f)
