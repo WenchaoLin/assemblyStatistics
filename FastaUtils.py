@@ -16,22 +16,15 @@ trans = string.maketrans('ACGTacgt', 'TGCAtgca')
 # re for fasta header
 r = re.compile("^>(?P<name>\S+)(\s(?P<desc>.*))?")
 
-#define sequence larger than 1000 as LARGE scafflod
-LARGE = 1000
-
-
 class Fasta(object):
     ''' Simple class to store a fasta formatted sequence '''
     
     def __init__(self, name, desc, seq):
         self.name = name
         self.desc = desc
-        self.isLarge = False
         self.seq = seq
         #self.gc = gcContent(self.seq)
         self.length = len(seq)
-        if self.length >= LARGE:
-            self.isLarge = True
         
     def __str__(self):
         ''' Output FASTA format of sequence when 'print' method is called '''
