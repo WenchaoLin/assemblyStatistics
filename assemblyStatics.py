@@ -8,13 +8,14 @@
 
 import FastaUtils
 import sys
-from optparse import OptionParser 
+from optparse import OptionParser
 
-
-def run(fin):
+def run(options):
     '''
     
     '''
+    
+    largeThreshold = options.large
 
     largestScaffoldName = ''
     largestScaffoldLength = 0
@@ -28,7 +29,8 @@ def run(fin):
     largeN = 0
     totalN = 0
     
-    obj = FastaUtils.load(fin)
+    
+    obj = FastaUtils.load(open(options.fasta, r))
     
     for fa in obj:
 
@@ -96,11 +98,14 @@ def parseArgs():
     '''
     parse options
     '''
-    usage = "usage: %prog [options] -f INPUT.fasta"
+    usage = 'usage: %prog [options] -f INPUT.fasta'
     parser = OptionParser(usage = usage) 
-    parser.add_option("-f", "--fasta", 
-                      dest="fasta", metavar = 'FILE', 
-                      help="input fasta file") 
+    parser.add_option('-f', '--fasta', 
+                      dest='fasta', metavar = 'FILE', 
+                      help='input fasta file')
+    parser.add_option('-L', '--large',
+                      dest = 'LARGE', default = 1000, type = int, 
+                      help = 'threshold of LARGE sequence')
     
     (options, args) = parser.parse_args()
     if not options.fasta:
@@ -111,8 +116,5 @@ def parseArgs():
 
 if __name__ == '__main__':
     
-    args = parseArgs()
-    
-    fastaname = args.fasta
-    f = open(fastaname, 'r')
-    run(f)
+    options = parseArgs()
+    run(options)
