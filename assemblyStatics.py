@@ -71,7 +71,7 @@ def run(options):
     say('Scaffold N90', FastaUtils.Nx0(allLenList, 90)[0])
     say('Counts of N90', FastaUtils.Nx0(allLenList, 90)[1])
     sayPercent('GC content(%)', float(totalGC) / lengthOfLargeSequence * 100)
-    sayPercent('N content (%)',  str(totalN) + 'bp (' + str(float(totalN) / lengthOfLargeSequence * 100)) + ')'
+    sayPercent('N content (%)',  str(totalN) + 'bp (' + str(float(totalN) / lengthOfLargeSequence * 100) + ')')
     
     
     print '\nLARGE (>1000bp) sequences summary:'
@@ -83,7 +83,7 @@ def run(options):
     say('LARGE scaffold N90', FastaUtils.Nx0(largeLenList, 90)[0])
     say('Counts of LARGE N90', FastaUtils.Nx0(largeLenList, 90)[1])
     sayPercent('GC content(%)', float(largeGC) / lengthOfLargeSequence * 100)
-    sayPercent('N content (%)', str(largeN) + 'bp (' + str(float(largeN) / lengthOfLargeSequence * 100)) + ')'
+    sayPercent('N content (%)', str(largeN) + 'bp (' + str(float(largeN) / lengthOfLargeSequence * 100) + ')')
     
     print '\ncontigs summary:'
     print '-----------------------------------'
