@@ -72,7 +72,7 @@ def run(options):
     say('Counts of N90', FastaUtils.Nx0(allLenList, 90)[1])
     try:
         sayPercent('GC content(%)', float(totalGC) / lengthOfLargeSequence * 100)
-        sayPercent('N Length', totalN)
+        say('N Length', totalN)
         sayPercent('N content (%)',  float(totalN) / lengthOfLargeSequence * 100)
     except ZeroDivisionError:
         sayPercent('GC content(%)', 0)
@@ -90,7 +90,7 @@ def run(options):
     say('Counts of LARGE N90', FastaUtils.Nx0(largeLenList, 90)[1])
     try:
         sayPercent('GC content(%)', float(largeGC) / lengthOfLargeSequence * 100)
-        sayPercent('N Length', largeN)
+        say('N Length', largeN)
         sayPercent('N content (%)', float(largeN) / lengthOfLargeSequence)
     except ZeroDivisionError:
         sayPercent('GC content(%)', 0)
