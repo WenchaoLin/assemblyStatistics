@@ -74,7 +74,7 @@ def run(options):
     sayPercent('N content (%)',  str(totalN) + 'bp (' + str(float(totalN) / lengthOfLargeSequence * 100) + ')')
     
     
-    print '\nLARGE (>1000bp) sequences summary:'
+    print '\nLARGE (> %sbp) sequences summary:' % (largeThreshold)
     print '-----------------------------------'
     say('Counts of LARGE sequences', countOfLargeSequence)
     say('Length of LARGE sequences', lengthOfLargeSequence)
