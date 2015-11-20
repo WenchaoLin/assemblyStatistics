@@ -104,7 +104,7 @@ def parseArgs():
                       dest='fasta', metavar = 'FILE', 
                       help='input fasta file')
     parser.add_option('-L', '--large',
-                      dest = 'LARGE', default = 1000, type = int, 
+                      dest = 'large', default = 1000, type = int, 
                       help = 'threshold of LARGE sequence')
     
     (options, args) = parser.parse_args()
