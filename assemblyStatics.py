@@ -1,19 +1,23 @@
 #!/usr/bin/python
-################################################################################
-#
-# Wenchaolin, 2015 @ Tianjin Biochip
-# linwenchao@yeah.net
-#
-################################################################################
+__author__ = "Wenchao Lin"
+__copyright__ = "Copyright 2015, TBC"
+__license__ = "GPL"
+__version__ = "1.0.0"
+__maintainer__ = "Wenchao Lin"
+__email__ = "linwenchao@yeah.net"
+__status__ = "Release"
+
 
 import FastaUtils
 import sys
+import re
 from optparse import OptionParser
 
 def run(options):
     '''
     
     '''
+
     
     largeThreshold = options.large
 
@@ -26,6 +30,7 @@ def run(options):
     countOfNs = 0
     allLenList = []
     largeLenList = []
+    contigList = []
     largeN = 0
     totalN = 0
     
@@ -37,10 +42,11 @@ def run(options):
         name = fa.name
         length = fa.length
         seq = fa.seq
+        contigList += map(len, re.split('N+', seq))
         if fa.length > largestScaffoldLength:
             largestScaffoldName = name
             largestScaffoldLength = length
-        if fa.isLarge:
+        if fa.length > largeThreshold :
             largeLenList.append(length)
             largeGC += seq.count('G') + seq.count('g')+ seq.count('c')+ seq.count('C')
             largeN += seq.count('N') + seq.count('n')
@@ -54,30 +60,39 @@ def run(options):
     totalLength = sum(allLenList)
     totalCount = len(allLenList)
         
-    print '\nAll sequences summary:'
-    print '-----------------------'
-    say('Counts of all sequences', totalCount)
-    say('Length of all sequences', sum(allLenList))
+    print '\nAll scaffold sequences summary:'
+    print '-----------------------------------'
+    say('Counts of scaffold sequences', totalCount)
+    say('Length of scaffold sequences', sum(allLenList))
     say('Largest scaffold name', largestScaffoldName)    
     say('Largest scaffold length', largestScaffoldLength)    
-    say('All N50', FastaUtils.Nx0(allLenList, 50)[0])
+    say('Scaffold N50', FastaUtils.Nx0(allLenList, 50)[0])
     say('Counts of N50', FastaUtils.Nx0(allLenList, 50)[1])
-    say('All N90', FastaUtils.Nx0(allLenList, 90)[0])
+    say('Scaffold N90', FastaUtils.Nx0(allLenList, 90)[0])
     say('Counts of N90', FastaUtils.Nx0(allLenList, 90)[1])
     sayPercent('GC content(%)', float(totalGC) / lengthOfLargeSequence * 100)
-    sayPercent('N content (%)', float(totalN) / lengthOfLargeSequence * 100)
+    sayPercent('N content (%)',  str(totalN) + 'bp (' + str(float(totalN) / lengthOfLargeSequence * 100)) + ')'
     
     
     print '\nLARGE (>1000bp) sequences summary:'
     print '-----------------------------------'
     say('Counts of LARGE sequences', countOfLargeSequence)
     say('Length of LARGE sequences', lengthOfLargeSequence)
-    say('LARGE N50', FastaUtils.Nx0(largeLenList, 50)[0])
+    say('LARGE scaffold N50', FastaUtils.Nx0(largeLenList, 50)[0])
     say('Counts of LARGE N50', FastaUtils.Nx0(largeLenList, 50)[1])
-    say('LARGE N90', FastaUtils.Nx0(largeLenList, 90)[0])
+    say('LARGE scaffold N90', FastaUtils.Nx0(largeLenList, 90)[0])
     say('Counts of LARGE N90', FastaUtils.Nx0(largeLenList, 90)[1])
     sayPercent('GC content(%)', float(largeGC) / lengthOfLargeSequence * 100)
-    sayPercent('N content (%)', float(largeN) / lengthOfLargeSequence * 100)
+    sayPercent('N content (%)', str(largeN) + 'bp (' + str(float(largeN) / lengthOfLargeSequence * 100)) + ')'
+    
+    print '\ncontigs summary:'
+    print '-----------------------------------'
+    say('Counts of contigs',len(contigList))
+    say('Maximum length of contigs',max(contigList))
+    say('contig N50', FastaUtils.Nx0(contigList, 50)[0])
+    say('Counts of contig N50', FastaUtils.Nx0(contigList, 50)[1])
+    say('contig N90', FastaUtils.Nx0(contigList, 90)[0])
+    say('Counts of contig N90', FastaUtils.Nx0(contigList, 90)[1])    
     
 
 
@@ -105,7 +120,7 @@ def parseArgs():
                       help='input fasta file')
     parser.add_option('-L', '--large',
                       dest = 'large', default = 1000, type = int, 
-                      help = 'threshold of LARGE sequence')
+                      help = 'Threshold of LARGE sequence [default = 1000]')
     
     (options, args) = parser.parse_args()
     if not options.fasta:
