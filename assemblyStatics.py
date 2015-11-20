@@ -30,7 +30,7 @@ def run(options):
     totalN = 0
     
     
-    obj = FastaUtils.load(open(options.fasta, r))
+    obj = FastaUtils.load(open(options.fasta, 'r'))
     
     for fa in obj:
 
