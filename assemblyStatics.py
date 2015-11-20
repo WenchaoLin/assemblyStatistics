@@ -70,9 +70,15 @@ def run(options):
     say('Counts of N50', FastaUtils.Nx0(allLenList, 50)[1])
     say('Scaffold N90', FastaUtils.Nx0(allLenList, 90)[0])
     say('Counts of N90', FastaUtils.Nx0(allLenList, 90)[1])
-    sayPercent('GC content(%)', float(totalGC) / lengthOfLargeSequence * 100)
-    sayPercent('N content (%)',  str(totalN) + 'bp (' + str(float(totalN) / lengthOfLargeSequence * 100) + ')')
-    
+    try:
+        sayPercent('GC content(%)', float(totalGC) / lengthOfLargeSequence * 100)
+        sayPercent('N Length', totalN)
+        sayPercent('N content (%)',  float(totalN) / lengthOfLargeSequence * 100)
+    except ZeroDivisionError:
+        sayPercent('GC content(%)', 0)
+        say('N Length', 0)
+        sayPercent('N content (%)', 0)
+        
     
     print '\nLARGE (> %sbp) sequences summary:' % (largeThreshold)
     print '-----------------------------------'
@@ -82,8 +88,15 @@ def run(options):
     say('Counts of LARGE N50', FastaUtils.Nx0(largeLenList, 50)[1])
     say('LARGE scaffold N90', FastaUtils.Nx0(largeLenList, 90)[0])
     say('Counts of LARGE N90', FastaUtils.Nx0(largeLenList, 90)[1])
-    sayPercent('GC content(%)', float(largeGC) / lengthOfLargeSequence * 100)
-    sayPercent('N content (%)', str(largeN) + 'bp (' + str(float(largeN) / lengthOfLargeSequence * 100) + ')')
+    try:
+        sayPercent('GC content(%)', float(largeGC) / lengthOfLargeSequence * 100)
+        sayPercent('N Length', largeN)
+        sayPercent('N content (%)', float(largeN) / lengthOfLargeSequence)
+    except ZeroDivisionError:
+        sayPercent('GC content(%)', 0)
+        say('N Length', 0)
+        sayPercent('N content (%)', 0)        
+        
     
     print '\ncontigs summary:'
     print '-----------------------------------'
