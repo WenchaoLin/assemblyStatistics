@@ -1,5 +1,7 @@
-# assemblyStatics
-Calculate assembly statics of a FASTA file such as N50, N90 etc.
+Synopsis
+========
+
+A simple program for evaluate the assembly of a give genome. Shows simple statistics about a fasta file containing many sequences. The result includes the name, N50, N90, GC Content, N rate, number of sequences etc., as well as various other information both in large scaffolds (>1000 bp) and in all sequences. 
 
 USAGE
 -----
