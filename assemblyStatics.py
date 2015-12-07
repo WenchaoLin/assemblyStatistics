@@ -91,7 +91,7 @@ def run(options):
     try:
         sayPercent('GC content(%)', float(largeGC) / lengthOfLargeSequence * 100)
         say('N Length', largeN)
-        sayPercent('N content (%)', float(largeN) / lengthOfLargeSequence)
+        sayPercent('N content (%)', float(largeN) / lengthOfLargeSequence * 100)
     except ZeroDivisionError:
         sayPercent('GC content(%)', 0)
         say('N Length', 0)
