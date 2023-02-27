@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import print_function, division, absolute_import, with_statement
 __author__ = "Wenchao Lin"
 __copyright__ = "Copyright 2015, TBC"
 __license__ = "GPL"
@@ -7,18 +8,15 @@ __maintainer__ = "Wenchao Lin"
 __email__ = "linwenchao@yeah.net"
 __status__ = "Release"
 
-
 import FastaUtils
 import sys
 import re
 from optparse import OptionParser
 
-def run(options):
-    '''
-    
-    '''
 
-    
+def run(options):
+    """Main method for collecting all Fasta stats"""
+
     largeThreshold = options.large
 
     largestScaffoldName = ''
@@ -27,7 +25,6 @@ def run(options):
     totalGC = 0
     largeGC = 0
     lengthOfLargeSequence = 0
-    countOfNs = 0
     allLenList = []
     largeLenList = []
     contigList = []
@@ -57,12 +54,9 @@ def run(options):
         totalGC += seq.count('G') + seq.count('g')+ seq.count('c')+ seq.count('C')
         totalN += seq.count('N') + seq.count('n')
         
-    totalLength = sum(allLenList)
-    totalCount = len(allLenList)
-        
-    print '\nAll scaffold sequences summary:'
-    print '-----------------------------------'
-    say('Counts of scaffold sequences', totalCount)
+    print('\nAll scaffold sequences summary:')
+    print('-----------------------------------')
+    say('Counts of scaffold sequences', len(allLenList))
     say('Length of scaffold sequences', sum(allLenList))
     say('Largest scaffold name', largestScaffoldName)    
     say('Largest scaffold length', largestScaffoldLength)    
@@ -80,8 +74,8 @@ def run(options):
         sayPercent('N content (%)', 0)
         
     
-    print '\nLARGE (> %sbp) sequences summary:' % (largeThreshold)
-    print '-----------------------------------'
+    print('\nLARGE (> %sbp) sequences summary:' % (largeThreshold))
+    print('-----------------------------------')
     say('Counts of LARGE sequences', countOfLargeSequence)
     say('Length of LARGE sequences', lengthOfLargeSequence)
     say('LARGE scaffold N50', FastaUtils.Nx0(largeLenList, 50)[0])
@@ -98,8 +92,8 @@ def run(options):
         sayPercent('N content (%)', 0)        
         
     
-    print '\ncontigs summary:'
-    print '-----------------------------------'
+    print('\ncontigs summary:')
+    print('-----------------------------------')
     say('Counts of contigs',len(contigList))
     say('Maximum length of contigs',max(contigList))
     say('contig N50', FastaUtils.Nx0(contigList, 50)[0])
@@ -110,22 +104,13 @@ def run(options):
 
 
 def say(notes, value):
-    '''format output'''
-    
-    print('%30s:\t%s' % (notes, value))
-    return 1
+    """format output"""
 
-def sayPercent(notes, value):
-    '''Percent format output'''
-    
-    print('%30s:\t%.5s%%' % (notes, value))
-    return 1
-    
+    print('%30s:\t%s' % (notes, value))
+
     
 def parseArgs():
-    '''
-    parse options
-    '''
+    """ parse options """
     usage = 'usage: %prog [options] -f INPUT.fasta'
     parser = OptionParser(usage = usage) 
     parser.add_option('-f', '--fasta', 
@@ -135,7 +120,7 @@ def parseArgs():
                       dest = 'large', default = 1000, type = int, 
                       help = 'Threshold of LARGE sequence [default = 1000]')
     
-    (options, args) = parser.parse_args()
+    options, args = parser.parse_args()
     if not options.fasta:
             parser.print_help()
             sys.exit()

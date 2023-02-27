@@ -7,17 +7,21 @@
 # and methods to load Fasta-formatted sequences from a file.
 #
 ################################################################################
-
+from __future__ import print_function, division, absolute_import, with_statement
 import re
-import string
 
 # transliterate for reverse complement
-trans = string.maketrans('ACGTacgt', 'TGCAtgca')
+try:
+    import string
+    trans = string.maketrans('ACGTacgt', 'TGCAtgca')
+except AttributeError:
+    trans = str.maketrans('ACGTacgt', 'TGCAtgca')
 # re for fasta header
 r = re.compile("^>(?P<name>\S+)(\s(?P<desc>.*))?")
 
+
 class Fasta(object):
-    ''' Simple class to store a fasta formatted sequence '''
+    """ Simple class to store a fasta formatted sequence """
     
     def __init__(self, name, desc, seq):
         self.name = name
@@ -27,7 +31,7 @@ class Fasta(object):
         self.length = len(seq)
         
     def __str__(self):
-        ''' Output FASTA format of sequence when 'print' method is called '''
+        """ Output FASTA format of sequence when 'print' method is called """
         s = []
         for i in range(0, self.length, 80):
             s.append(self.seq[i:i+80])
@@ -37,19 +41,20 @@ class Fasta(object):
             return ">%s\n%s" % (self.name, "\n".join(s))
     
     def reverse_complement(self):
-        ''' Reverse complement sequence, return new Fasta object '''
+        """ Reverse complement sequence, return new Fasta object """
         rcseq = self.seq[::-1].translate(trans)
         return Fasta(self.name, self.desc, rcseq)
-    
+
+
 def gcContent(seq):
-    '''return gc content'''
-    
+    """return gc content"""
     gc = seq.count('G') + seq.count('g')+ seq.count('c')+ seq.count('C')
     gcContent = float(gc) / len(seq)
     return gcContent
 
+
 def Nx0(listOfNumbers, x = 50):
-    '''return Nx0 of an given list of numbers'''
+    """return Nx0 of an given list of numbers"""
     listOfNumbers.sort(reverse=1)
     theorNx0 = sum(listOfNumbers) * x / 100
     
@@ -67,9 +72,9 @@ def Nx0(listOfNumbers, x = 50):
 
 
 def load(f):
-    ''' Parameter: HANDLE to input in Fasta format 
+    """ Parameter: HANDLE to input in Fasta format
         e.g. sys.stdin, or open(<file>)
-        Returns array of Fasta objects.'''
+        Returns array of Fasta objects."""
     name, desc, seq = '', '', ''
     seqs = []
     while True:
@@ -92,9 +97,8 @@ def load(f):
     return seqs
 
 
-
 if __name__ == "__main__":
     
     test = [10,20,30,40,50]
     m = Nx0(test, 50)
-    print m
+    print(m)
