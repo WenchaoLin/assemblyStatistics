@@ -105,12 +105,8 @@ def run(options):
 
 def say(notes, value):
     """format output"""
-    
-    print('%30s:\t%s' % (notes, value))
 
-def sayPercent(notes, value):
-    """Percent format output"""
-    print('%30s:\t%.5s%%' % (notes, value))
+    print('%30s:\t%s' % (notes, value))
 
     
 def parseArgs():
