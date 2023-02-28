@@ -1,9 +1,10 @@
 Synopsis
 ========
 
-A simple program for evaluate the assembly of a give genome. Shows simple statistics about a fasta file containing many sequences. The result includes the name, N50, N90, GC Content, N rate, number of sequences etc., as well as various other information both in large scaffolds (>1000 bp) and in all sequences. 
+一个用于评估给定基因组的拼接结果的脚本，用于查看拼接结果的Scaffold， Contig统计信息。它提供了有关包含多个序列的Fasta文件的各种统计信息，如序列名称、N50、N90、GC含量、N比率、序列数量等。
 
 
+A script to evaluate the assembly of a given genome. It provides various statistics regarding a Fasta file containing multiple sequences, such as sequence name, N50, N90, GC Content, N rate, etc., both large scaffolds (>1000 bp) and contigs across all sequences.
 
 
 USAGE
