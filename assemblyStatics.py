@@ -1,114 +1,88 @@
 #!/usr/bin/python
-from __future__ import print_function, division, absolute_import, with_statement
 __author__ = "Wenchao Lin"
-__copyright__ = "Copyright 2015, TBC"
+__copyright__ = "Copyright 2023 @ TBC"
 __license__ = "GPL"
-__version__ = "1.0.0"
-__maintainer__ = "Wenchao Lin"
+__version__ = "1.1.0"
 __email__ = "linwenchao@yeah.net"
-__status__ = "Release"
 
-import FastaUtils
 import sys
 import re
 from optparse import OptionParser
+from  FastaUtils import FastaIO, Nx0, say
 
 
 def run(options):
     """Main method for collecting all Fasta stats"""
 
-    largeThreshold = options.large
+    threshold = options.large
 
-    largestScaffoldName = ''
+    largestScaffoldName = None
     largestScaffoldLength = 0
-    countOfLargeSequence = 0
-    totalGC = 0
-    largeGC = 0
-    lengthOfLargeSequence = 0
-    allLenList = []
-    largeLenList = []
-    contigList = []
-    largeN = 0
-    totalN = 0
-    
-    
-    obj = FastaUtils.load(open(options.fasta, 'r'))
-    
-    for fa in obj:
+    all_seq_list = []
+    large_seq_list = []
+    contig_seq_list = []
 
-        name = fa.name
-        length = fa.length
-        seq = fa.seq
-        contigList += map(len, re.split('N+', seq))
-        if fa.length > largestScaffoldLength:
+    n_cnt, gc_cnt, lg_n_cnt, lg_gc_cnt = 0, 0 ,0 ,0
+   
+    seqObj = FastaIO(options.fasta)
+    for seq in seqObj:
+        name = seq.id
+        length = seq.length
+        sequence = seq.seq
+
+        all_seq_list.append(length)
+        contig_seq_list += map(len, re.split('[nN]+', sequence))
+        n_cnt += sequence.upper().count('N')
+        gc_cnt += seq.gcCount
+   
+        if length > largestScaffoldLength:
             largestScaffoldName = name
             largestScaffoldLength = length
-        if fa.length > largeThreshold :
-            largeLenList.append(length)
-            largeGC += seq.count('G') + seq.count('g')+ seq.count('c')+ seq.count('C')
-            largeN += seq.count('N') + seq.count('n')
-            
-        lengthOfLargeSequence = sum(largeLenList)
-        countOfLargeSequence = len(largeLenList)
-        allLenList.append(length)
-        totalGC += seq.count('G') + seq.count('g')+ seq.count('c')+ seq.count('C')
-        totalN += seq.count('N') + seq.count('n')
+        
+        if length > threshold :
+            large_seq_list.append(length)
+            lg_gc_cnt += seq.gcCount
+            lg_n_cnt += sequence.upper().count('N')
+
         
     print('\nAll scaffold sequences summary:')
-    print('-----------------------------------')
-    say('Counts of scaffold sequences', len(allLenList))
-    say('Length of scaffold sequences', sum(allLenList))
+    print('-' * 50)
+    say('Counts of scaffold sequences', len(all_seq_list))
+    say('Length of scaffold sequences', sum(all_seq_list))
     say('Largest scaffold name', largestScaffoldName)    
     say('Largest scaffold length', largestScaffoldLength)    
-    say('Scaffold N50', FastaUtils.Nx0(allLenList, 50)[0])
-    say('Counts of N50', FastaUtils.Nx0(allLenList, 50)[1])
-    say('Scaffold N90', FastaUtils.Nx0(allLenList, 90)[0])
-    say('Counts of N90', FastaUtils.Nx0(allLenList, 90)[1])
-    try:
-        sayPercent('GC content(%)', float(totalGC) / lengthOfLargeSequence * 100)
-        say('N Length', totalN)
-        sayPercent('N content (%)',  float(totalN) / lengthOfLargeSequence * 100)
-    except ZeroDivisionError:
-        sayPercent('GC content(%)', 0)
-        say('N Length', 0)
-        sayPercent('N content (%)', 0)
-        
-    
-    print('\nLARGE (> %sbp) sequences summary:' % (largeThreshold))
-    print('-----------------------------------')
-    say('Counts of LARGE sequences', countOfLargeSequence)
-    say('Length of LARGE sequences', lengthOfLargeSequence)
-    say('LARGE scaffold N50', FastaUtils.Nx0(largeLenList, 50)[0])
-    say('Counts of LARGE N50', FastaUtils.Nx0(largeLenList, 50)[1])
-    say('LARGE scaffold N90', FastaUtils.Nx0(largeLenList, 90)[0])
-    say('Counts of LARGE N90', FastaUtils.Nx0(largeLenList, 90)[1])
-    try:
-        sayPercent('GC content(%)', float(largeGC) / lengthOfLargeSequence * 100)
-        say('N Length', largeN)
-        sayPercent('N content (%)', float(largeN) / lengthOfLargeSequence * 100)
-    except ZeroDivisionError:
-        sayPercent('GC content(%)', 0)
-        say('N Length', 0)
-        sayPercent('N content (%)', 0)        
-        
+    say('Scaffold N50 ', Nx0(all_seq_list, 50)[0])
+    say('Counts of N50', Nx0(all_seq_list, 50)[1])
+    say('Scaffold N90', Nx0(all_seq_list, 90)[0])
+    say('Counts of N90', Nx0(all_seq_list, 90)[1])
+    say('GC content(%)', gc_cnt / sum(all_seq_list) * 100.0)
+    say('N Length', n_cnt)
+    say('N content (%)',  n_cnt / sum(all_seq_list) * 100.0)
+
+    if large_seq_list:
+        print('\nLARGE (> %s bp) sequences summary:' % threshold )
+        print('-' * 50)
+        say('Counts of LARGE sequences', len(large_seq_list))
+        say('Length of LARGE sequences', sum(large_seq_list))
+        say('LARGE scaffold N50', Nx0(large_seq_list, 50)[0])
+        say('Counts of LARGE N50', Nx0(large_seq_list, 50)[1])
+        say('LARGE scaffold N90', Nx0(large_seq_list, 90)[0])
+        say('Counts of LARGE N90', Nx0(large_seq_list, 90)[1])
+        say('GC content(%)', lg_gc_cnt / sum(large_seq_list) * 100.0)
+        say('N Length', lg_n_cnt)
+        say('N content (%)', lg_n_cnt / sum(large_seq_list) * 100.0)
+
     
     print('\ncontigs summary:')
-    print('-----------------------------------')
-    say('Counts of contigs',len(contigList))
-    say('Maximum length of contigs',max(contigList))
-    say('contig N50', FastaUtils.Nx0(contigList, 50)[0])
-    say('Counts of contig N50', FastaUtils.Nx0(contigList, 50)[1])
-    say('contig N90', FastaUtils.Nx0(contigList, 90)[0])
-    say('Counts of contig N90', FastaUtils.Nx0(contigList, 90)[1])    
+    print('-'*50)
+    say('Counts of contigs',len(contig_seq_list))
+    say('Maximum length of contigs',max(contig_seq_list))
+    say('contig N50', Nx0(contig_seq_list, 50)[0])
+    say('Counts of contig N50', Nx0(contig_seq_list, 50)[1])
+    say('contig N90', Nx0(contig_seq_list, 90)[0])
+    say('Counts of contig N90', Nx0(contig_seq_list, 90)[1])    
     
 
-
-def say(notes, value):
-    """format output"""
-
-    print('%30s:\t%s' % (notes, value))
-
-    
 def parseArgs():
     """ parse options """
     usage = 'usage: %prog [options] -f INPUT.fasta'
@@ -116,12 +90,15 @@ def parseArgs():
     parser.add_option('-f', '--fasta', 
                       dest='fasta', metavar = 'FILE', 
                       help='input fasta file')
-    parser.add_option('-L', '--large',
+    parser.add_option('-l', '-L', '--large',
                       dest = 'large', default = 1000, type = int, 
                       help = 'Threshold of LARGE sequence [default = 1000]')
     
-    options, args = parser.parse_args()
+    (options, args) = parser.parse_args()
     if not options.fasta:
+        try:
+            options.fasta = args[0]
+        except:
             parser.print_help()
             sys.exit()
     return options
