@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 __author__ = "Wenchao Lin"
 __copyright__ = "Copyright 2023 @ TBC"
 __license__ = "GPL"
@@ -83,7 +83,8 @@ def run(options):
     say('Counts of contig N90', Nx0(contig_seq_list, 90)[1])    
     
 
-def parseArgs():
+def main():
+    
     """ parse options """
     usage = 'usage: %prog [options] -f INPUT.fasta'
     parser = OptionParser(usage = usage) 
@@ -101,10 +102,8 @@ def parseArgs():
         except:
             parser.print_help()
             sys.exit()
-    return options
 
-
-if __name__ == '__main__':
-    
-    options = parseArgs()
     run(options)
+
+if __name__ == "__main__":
+    main()

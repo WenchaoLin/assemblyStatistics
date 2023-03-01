@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assemblyStats"
+version = "1.1.0"
+authors = [
+  { name="Wenchao Lin", email="linwenchao@yeah.net" },
+]
+description = "A script to evaluate the assembly of a given genome."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "hhttps://github.com/WenchaoLin/assemblyStats"
+"Bug Tracker" = "https://github.com/WenchaoLin/assemblyStats/issues"

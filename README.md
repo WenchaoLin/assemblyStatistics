@@ -1,17 +1,51 @@
-Synopsis
-========
+## Synopsis
+
+
+A script to evaluate the assembly of a given genome. 
+
+[![Build Status](https://app.travis-ci.com/WenchaoLin/assemblyStats.svg?branch=master)](https://app.travis-ci.com/WenchaoLin/assemblyStats)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/WenchaoLin/assemblyStats/blob/master/LICENSE)
+
+
+💙 If you like this project, give it a ⭐ and share it with friends!
+
+
+
+It provides various statistics regarding a Fasta file containing multiple sequences, such as sequence name, N50, N90, GC Content, N rate, etc., both large scaffolds (>1000 bp) and contigs across all sequences.
 
 一个用于评估给定基因组的拼接结果的脚本，用于查看拼接结果的Scaffold， Contig统计信息。它提供了有关包含多个序列的Fasta文件的各种统计信息，如序列名称、N50、N90、GC含量、N比率、序列数量等。
 
 
-A script to evaluate the assembly of a given genome. It provides various statistics regarding a Fasta file containing multiple sequences, such as sequence name, N50, N90, GC Content, N rate, etc., both large scaffolds (>1000 bp) and contigs across all sequences.
 
+## ⚙ USAGE
 
-USAGE
------
 
 ```
-Usage: assemblyStatics.py [options] -f INPUT.fasta
+Usage: assemblyStats.py [options] -f INPUT.fasta
+
+Options:
+  -h, --help            show this help message and exit
+  -f FILE, --fasta=FILE
+                        input fasta file
+  -l LARGE, -L LARGE, --large=LARGE
+                        Threshold of LARGE sequence [default = 1000]
+```
+
+## ⚡ Quick setup
+
+
+```
+pip install assemblyStats
+```
+
+
+## 🔧 Options
+
+
+run `assemblyStats -h` or `assemblyStats --help` for options
+
+```
+Usage: assemblyStats [options] -f INPUT.fasta
 
 Options:
   -h, --help            show this help message and exit
@@ -22,13 +56,18 @@ Options:
 ```
 
 
+## Usages
+
+
 
 ```
-python assemblyStatics.py -f test.fasta -l 100
+assemblyStats -f test.fasta -l 100
+assemblyStats test.fasta
 ```
 
-Sample output
--------------
+
+## Sample output
+
 ```
 
 All scaffold sequences summary:
@@ -66,3 +105,13 @@ Counts of contig N50                    3
 contig N90                              36                                      
 Counts of contig N90                    5     
 ```
+
+## Feedback/Issues
+
+Please report any issues to the [issues page](https://github.com/sanger-pathogens/assembly-stats/issues) or email path-help@sanger.ac.uk
+
+## Todo
+
+- Get statistics from a list of files
+- Compressed format (.gz, .bz2 or .xz) support
+- Multiple output format support
