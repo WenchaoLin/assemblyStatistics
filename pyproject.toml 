@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "assemblyStats"
-version = "1.1.0"
+name = "assemblyStatistics"
+version = "1.1.1"
 authors = [
   { name="Wenchao Lin", email="linwenchao@yeah.net" },
 ]
@@ -18,5 +18,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "hhttps://github.com/WenchaoLin/assemblyStats"
-"Bug Tracker" = "https://github.com/WenchaoLin/assemblyStats/issues"
+"Homepage" = "https://github.com/WenchaoLin/assemblyStatistics"
+"Bug Tracker" = "https://github.com/WenchaoLin/assemblyStatistics/issues"

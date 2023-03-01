@@ -3,8 +3,8 @@
 
 A script to evaluate the assembly of a given genome. 
 
-[![Build Status](https://app.travis-ci.com/WenchaoLin/assemblyStats.svg?branch=master)](https://app.travis-ci.com/WenchaoLin/assemblyStats)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/WenchaoLin/assemblyStats/blob/master/LICENSE)
+[![Build Status](https://app.travis-ci.com/WenchaoLin/assemblyStatistics.svg?branch=master)](https://app.travis-ci.com/WenchaoLin/assemblyStatistics)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/WenchaoLin/assemblyStatistics/blob/master/LICENSE)
 
 
 💙 If you like this project, give it a ⭐ and share it with friends!
@@ -21,7 +21,7 @@ It provides various statistics regarding a Fasta file containing multiple sequen
 
 
 ```
-Usage: assemblyStats.py [options] -f INPUT.fasta
+Usage: assemblyStatistics.py [options] -f INPUT.fasta
 
 Options:
   -h, --help            show this help message and exit
@@ -35,17 +35,17 @@ Options:
 
 
 ```
-pip install assemblyStats
+pip install assemblyStatistics
 ```
 
 
 ## 🔧 Options
 
 
-run `assemblyStats -h` or `assemblyStats --help` for options
+run `assemblyStatistics -h` or `assemblyStatistics --help` for options
 
 ```
-Usage: assemblyStats [options] -f INPUT.fasta
+Usage: assemblyStatistics [options] -f INPUT.fasta
 
 Options:
   -h, --help            show this help message and exit
@@ -61,8 +61,8 @@ Options:
 
 
 ```
-assemblyStats -f test.fasta -l 100
-assemblyStats test.fasta
+assemblyStatistics -f test.fasta -l 100
+assemblyStatistics test.fasta
 ```
 
 
@@ -108,7 +108,7 @@ Counts of contig N90                    5
 
 ## Feedback/Issues
 
-Please report any issues to the [issues page](https://github.com/WenchaoLin/assemblyStats/issues) or email linwenchao@yeah.net
+Please report any issues to the [issues page](https://github.com/WenchaoLin/assemblyStatistics/issues) or email linwenchao@yeah.net
 
 ## Todo
 
