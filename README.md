@@ -108,7 +108,7 @@ Counts of contig N90                    5
 
 ## Feedback/Issues
 
-Please report any issues to the [issues page](https://github.com/sanger-pathogens/assembly-stats/issues) or email path-help@sanger.ac.uk
+Please report any issues to the [issues page](https://github.com/WenchaoLin/assemblyStats/issues) or email linwenchao@yeah.net
 
 ## Todo
 
