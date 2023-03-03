@@ -1,10 +1,9 @@
 ## assemblyStatistics
-
-
-A script to evaluate the assembly of a given genome. 
-
 [![Python package](https://github.com/WenchaoLin/assemblyStatistics/actions/workflows/python-package.yml/badge.svg)](https://github.com/WenchaoLin/assemblyStatistics/actions/workflows/python-package.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/WenchaoLin/assemblyStatistics/blob/master/LICENSE)
+[![Made With Love](https://img.shields.io/badge/Made%20With-Love-orange.svg)](https://github.com/chetanraj/awesome-github-badges)
+
+A script to evaluate the assembly of a given genome. 
 
 
 💙 If you like this project, give it a ⭐ and share it with friends!
@@ -44,14 +43,19 @@ Options:
   -h, --help            show this help message and exit
   -f FILE, --fasta=FILE
                         input fasta file
-  -l LARGE, -L LARGE, --large=LARGE
-                        Threshold of LARGE sequence [default = 1000]
+  -t FORMAT, --outfmt=FORMAT
+                        format of the output, choices = [txt, json]
+  -l LENGTH, -L LENGTH, --length=LENGTH
+                        Threshold of length defined a sequence as Large
+                        [default = 1000]
 ```
 
 
 ## Sample output
 
-```
+Default txt output(human readable text format)
+
+```txt
 
 All scaffold sequences summary:
 --------------------------------------------------
@@ -87,6 +91,39 @@ contig N50                              70
 Counts of contig N50                    3                                       
 contig N90                              36                                      
 Counts of contig N90                    5     
+```
+
+JSON format output with command `assemblyStatistics -f sample.fasta -t json`
+
+```json
+{
+    "All scaffolds": {
+        "Counts of scaffold sequences": 4,
+        "Length of scaffold sequences": 605,
+        "Largest scaffold name": "seq2",
+        "Largest scaffold length": 271,
+        "Scaffold N50": 269,
+        "Counts of N50": 2,
+        "Scaffold N90": 45,
+        "Counts of N90": 3,
+        "GC content(%)": 49.09090909090909,
+        "N Length": 59,
+        "N content (%)": 9.75206611570248
+    },
+    "LARGE sequences": {
+        "threshold": 1000,
+        "Counts of LARGE sequences": 0,
+        "Length of LARGE sequences": 0
+    },
+    "Contigs": {
+        "Counts of contigs": 8,
+        "Maximum length": 225,
+        "contig N50": 121,
+        "Counts of contig N50": 2,
+        "contig N90": 21,
+        "Counts of contig N90": 6
+    }
+}
 ```
 
 ## Feedback/Issues
