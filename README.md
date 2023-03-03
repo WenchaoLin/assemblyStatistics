@@ -1,8 +1,9 @@
-## Synopsis
+## assemblyStatistics
 
 
 A script to evaluate the assembly of a given genome. 
 
+[![Python package](https://github.com/WenchaoLin/assemblyStatistics/actions/workflows/python-package.yml/badge.svg)](https://github.com/WenchaoLin/assemblyStatistics/actions/workflows/python-package.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/WenchaoLin/assemblyStatistics/blob/master/LICENSE)
 
 
