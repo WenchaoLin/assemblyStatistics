@@ -16,7 +16,7 @@ setup(name='assemblyStatistics',
       keywords=['bioinformatics', 'genome statics', 'scaffold N50'],
       entry_points={
         'console_scripts': [
-            'assemblyStatistics = assemblyStatistics:main'
+            'assemblyStatistics = src.assemblyStatistics:main'
         ]
       }
-)
+      )

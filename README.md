@@ -3,12 +3,10 @@
 
 A script to evaluate the assembly of a given genome. 
 
-[![Build Status](https://app.travis-ci.com/WenchaoLin/assemblyStatistics.svg?branch=master)](https://app.travis-ci.com/WenchaoLin/assemblyStatistics)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-brightgreen.svg)](https://github.com/WenchaoLin/assemblyStatistics/blob/master/LICENSE)
 
 
 💙 If you like this project, give it a ⭐ and share it with friends!
-
 
 
 It provides various statistics regarding a Fasta file containing multiple sequences, such as sequence name, N50, N90, GC Content, N rate, etc., both large scaffolds (>1000 bp) and contigs across all sequences.
@@ -19,20 +17,12 @@ It provides various statistics regarding a Fasta file containing multiple sequen
 
 ## ⚙ USAGE
 
-
 ```
-Usage: assemblyStatistics.py [options] -f INPUT.fasta
-
-Options:
-  -h, --help            show this help message and exit
-  -f FILE, --fasta=FILE
-                        input fasta file
-  -l LARGE, -L LARGE, --large=LARGE
-                        Threshold of LARGE sequence [default = 1000]
+assemblyStatistics -f test.fasta -l 100
+assemblyStatistics test.fasta
 ```
 
-## ⚡ Quick setup
-
+## ⚡ Quick install
 
 ```
 pip install assemblyStatistics
@@ -41,28 +31,20 @@ pip install assemblyStatistics
 
 ## 🔧 Options
 
-
 run `assemblyStatistics -h` or `assemblyStatistics --help` for options
 
 ```
 Usage: assemblyStatistics [options] -f INPUT.fasta
 
+A script to evaluate the assembly of a given fasta.
+
 Options:
+  --version             show program's version number and exit
   -h, --help            show this help message and exit
   -f FILE, --fasta=FILE
                         input fasta file
   -l LARGE, -L LARGE, --large=LARGE
                         Threshold of LARGE sequence [default = 1000]
-```
-
-
-## Usages
-
-
-
-```
-assemblyStatistics -f test.fasta -l 100
-assemblyStatistics test.fasta
 ```
 
 
