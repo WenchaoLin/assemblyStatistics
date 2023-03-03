@@ -3,7 +3,7 @@ from setuptools import setup
 file_path = 'README.md'
 
 setup(name='assemblyStatistics',
-      version='1.1.1',
+      version='1.1.2',
       description='A script to evaluate the assembly of a given genome.',
       long_description=open(file_path, encoding='utf-8').read(),
       long_description_content_type='text/markdown',

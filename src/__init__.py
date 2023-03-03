@@ -1,5 +1,5 @@
 __author__ = "Wenchao Lin"
 __copyright__ = "Copyright 2023 @ TBC"
 __license__ = "GPL"
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 __email__ = "linwenchao@yeah.net"
